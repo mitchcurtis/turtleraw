@@ -8,7 +8,10 @@
 
 #include <QFontDatabase>
 #include <QFile>
+#include <QDir>
+#include <QStandardPaths>
 
+#include "settings.h"
 #include "main_window.h"
 
 using namespace turtleraw;
@@ -31,8 +34,19 @@ int main(int argc, char *argv[]) {
     turtlerawApp.setStyle(new PhantomStyle);
     installFonts();
 
-    // TODO: check useSystemFont
-    turtlerawApp.setFont(QFont("Roboto Condensed", 11));
+    Settings *settings = new Settings;
+    QDir homeSettingsDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/TurtleRaw");
+    if (!homeSettingsDir.exists()) {
+        homeSettingsDir.mkpath(".");
+        settings->init();
+    }
+
+    if (!settings->read()) {
+        // TODO
+    }
+
+    if (!settings->systemFontWanted())
+        turtlerawApp.setFont(QFont("Roboto Condensed", 11));
 
     QPalette appPalette;
     appPalette.setColor(QPalette::Base, QColor(80, 80, 80));
@@ -50,6 +64,7 @@ int main(int argc, char *argv[]) {
     turtlerawApp.setStyleSheet(stylesheetFile.readAll());
 
     MainWindow win;
+    win.carrySettings(settings);
     win.show();
 
     return turtlerawApp.exec();

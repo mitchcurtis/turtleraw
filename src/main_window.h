@@ -15,6 +15,7 @@
 #include <QScrollArea>
 #include <QPushButton>
 
+#include "settings.h"
 #include "folder_browser.h"
 
 namespace turtleraw {
@@ -30,6 +31,10 @@ public:
     QPointer<QScrollArea> folderBrowserScroll;
     QPointer<FolderBrowser> folderBrowserView;
     bool m_folderBrowserShown;
+
+    void carrySettings(Settings *s) {
+        m_settings = s;
+    }
 protected:
     QMenuBar* windowMenuBar();
 
@@ -38,6 +43,8 @@ protected:
     QPushButton *m_showFolderBrowserBtn;
 
     QWidget* createLayout();
+
+    Settings *m_settings;
 private:
     QMenu *m_fileMenu;
     QMenu *m_editMenu;
