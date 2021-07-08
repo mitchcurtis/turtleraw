@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     turtlerawApp.setStyle(new PhantomStyle);
     installFonts();
 
-    // TODO: make a check if os default font is wanted to use
+    // TODO: check useSystemFont
     turtlerawApp.setFont(QFont("Roboto Condensed", 11));
 
     QPalette appPalette;

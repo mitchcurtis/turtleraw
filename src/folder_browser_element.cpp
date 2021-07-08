@@ -6,7 +6,7 @@
 namespace turtleraw {
 
 FolderBrowserElement::FolderBrowserElement(QWidget *parent) : QWidget(parent) {
-    setFixedSize(QSize(218, 180));
+    setFixedSize(QSize(228, 228));
     setStyleSheet("background-color: rgb(102, 102, 102);");
 
     m_layout = new QVBoxLayout(this);
@@ -34,9 +34,6 @@ FolderBrowserElement::FolderBrowserElement(QWidget *parent) : QWidget(parent) {
         m_imageLbl->setStyleSheet("border: none;");
         m_imageLbl->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     }
-
-    // placeholders
-    m_fileExtensionLbl->setText("cr2");
 
     m_layout->addWidget(m_fileExtensionLbl, Qt::AlignLeft);
     m_layout->addWidget(m_imageLbl, Qt::AlignVCenter);

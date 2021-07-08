@@ -72,11 +72,11 @@ QWidget* MainWindow::createLayout() {
 
 void MainWindow::onShowFolderBrowserBtn_Clicked() {
     if (!m_folderBrowserShown) {
-        propAnimation(folderBrowserScroll, "maximumHeight", 100, 0, 180);
+        propAnimation(folderBrowserScroll, "maximumHeight", 100, 0, 230);
         m_folderBrowserShown = true;
         m_showFolderBrowserBtn->setText("\uE5CF");
     } else {
-        propAnimation(folderBrowserScroll, "maximumHeight", 100, 180, 0);
+        propAnimation(folderBrowserScroll, "maximumHeight", 100, 230, 0);
         m_folderBrowserShown = false;
         m_showFolderBrowserBtn->setText("\uE5CE");
     }
