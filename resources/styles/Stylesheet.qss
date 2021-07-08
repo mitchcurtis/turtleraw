@@ -1,0 +1,38 @@
+/* TurtleRaw's default stylesheet */
+
+QScrollBar:horizontal {
+    height: 15px;
+    margin: 3px 15px 3px 15px;
+    border: 1px transparent #2A2929;
+    border-radius: 4px;
+    background-color: rgb(60, 60, 60);
+}
+
+QScrollBar::handle:horizontal {
+    background-color: rgb(200, 200, 200);
+    min-width: 5px;
+    border-radius: 4px;
+}
+
+QScrollBar::add-line:horizontal {
+    border: none;
+    background: none;
+}
+
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: none;
+}
+
+#ShowFolderBrowserButton {
+    border: none;
+    padding: 0px;
+}
+
+#ShowFolderBrowserButton:hover {
+    color: rgb(2, 143, 30);
+}
+
+#ShowFolderBrowserButton:pressed {
+    color: black;
+}

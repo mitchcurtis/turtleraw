@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/styles/Stylesheet.qss</file>
+        <file>resources/fonts/RobotoCondensed-Regular.ttf</file>
+        <file>resources/fonts/RobotoCondensed-LightItalic.ttf</file>
+        <file>resources/fonts/RobotoCondensed-Light.ttf</file>
+        <file>resources/fonts/RobotoCondensed-Italic.ttf</file>
+        <file>resources/fonts/RobotoCondensed-BoldItalic.ttf</file>
+        <file>resources/fonts/RobotoCondensed-Bold.ttf</file>
+        <file>resources/fonts/MaterialIconsSharp-Regular.otf</file>
+    </qresource>
+</RCC>
