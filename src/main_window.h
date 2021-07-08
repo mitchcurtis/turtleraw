@@ -7,8 +7,7 @@
 
 #include <QPointer>
 
-#include <QMenuBar>
-#include <QMenu>
+#include <QToolBar>
 
 #include <QVBoxLayout>
 
@@ -26,7 +25,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    QMenuBar *m_windowMenuBar;
+    QToolBar *m_toolBar;
     
     QPointer<QScrollArea> folderBrowserScroll;
     QPointer<FolderBrowser> folderBrowserView;
@@ -35,9 +34,8 @@ public:
     void carrySettings(Settings *s) {
         m_settings = s;
     }
+    
 protected:
-    QMenuBar* windowMenuBar();
-
     QWidget *m_centralWidget;
     QVBoxLayout *m_mainLayout;
     QPushButton *m_showFolderBrowserBtn;
@@ -45,12 +43,6 @@ protected:
     QWidget* createLayout();
 
     Settings *m_settings;
-private:
-    QMenu *m_fileMenu;
-    QMenu *m_editMenu;
-    QMenu *m_viewMenu;
-    QMenu *m_toolsMenu;
-    QMenu *m_helpMenu;
 
 public slots:
     void onShowFolderBrowserBtn_Clicked();

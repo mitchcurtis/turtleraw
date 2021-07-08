@@ -7,24 +7,19 @@
 namespace turtleraw {
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-    setMenuBar(windowMenuBar());
+    m_toolBar = new QToolBar(this);
+    {
+        m_toolBar->setObjectName("WindowToolBar");
+        // Fixed to top
+        m_toolBar->setFloatable(false);
+        m_toolBar->setMovable(false);
+    }
+    addToolBar(Qt::TopToolBarArea, m_toolBar);
+
     setCentralWidget(createLayout());
 }
 
 MainWindow::~MainWindow() {
-}
-
-QMenuBar* MainWindow::windowMenuBar() {
-    m_windowMenuBar = new QMenuBar(this);
-    m_windowMenuBar->setObjectName("WindowMenuBar");
-
-    m_fileMenu = m_windowMenuBar->addMenu(tr("File"));
-    m_editMenu = m_windowMenuBar->addMenu(tr("Edit"));
-    m_viewMenu = m_windowMenuBar->addMenu(tr("View"));
-    m_toolsMenu = m_windowMenuBar->addMenu(tr("Tools"));
-    m_helpMenu = m_windowMenuBar->addMenu(tr("Help"));
-
-    return m_windowMenuBar;
 }
 
 QWidget* MainWindow::createLayout() {
