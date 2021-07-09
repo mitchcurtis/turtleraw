@@ -13,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         // Fixed to top
         m_toolBar->setFloatable(false);
         m_toolBar->setMovable(false);
+
+        // Fill the toolbar with actions
+        fillToolBar();
     }
     addToolBar(Qt::TopToolBarArea, m_toolBar);
 
@@ -20,6 +23,53 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 MainWindow::~MainWindow() {
+}
+
+void MainWindow::createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText) {
+    tb->addWidget(btn);
+    btn->setShortcut(QKeySequence(shortcut));
+    if (!shortcut.isEmpty())
+        btn->setToolTip(tipText + " (" + QKeySequence(btn->shortcut()).toString() + ")");
+    else
+        btn->setToolTip(tipText);
+}
+
+void MainWindow::fillToolBar() {
+    m_previousBtn = new QPushButton("\uE5C4", m_toolBar);
+    createToolBarButton(m_previousBtn, m_toolBar, "Ctrl+Left", tr("Previous"));
+    m_toolBarBtns.append(m_previousBtn);
+
+    m_nextBtn = new QPushButton("\uE5C8", m_toolBar);
+    createToolBarButton(m_nextBtn, m_toolBar, "Ctrl+Right", tr("Next"));
+    m_toolBarBtns.append(m_nextBtn);
+
+    m_metaDataBtn = new QPushButton("\uE88E", m_toolBar);
+    createToolBarButton(m_metaDataBtn, m_toolBar, "Alt+M", tr("Show metadata"));
+    m_toolBarBtns.append(m_metaDataBtn);
+
+    m_toolBar->addSeparator();
+
+    m_deleteBtn = new QPushButton("\uE872", m_toolBar);
+    createToolBarButton(m_deleteBtn, m_toolBar, "Del", tr("Delete"));
+    m_toolBarBtns.append(m_deleteBtn);
+
+    QWidget *_toolBarSpacer = new QWidget(m_toolBar);
+    _toolBarSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_toolBar->addWidget(_toolBarSpacer);
+
+    m_menuBtn = new QPushButton("\uE5D2", m_toolBar);
+    createToolBarButton(m_menuBtn, m_toolBar, "", tr("Menu"));
+    m_toolBarBtns.append(m_menuBtn);
+    {
+        m_headMenu = new QMenu(m_toolBar);
+        m_helpMenu = m_headMenu->addMenu(tr("Help"));
+        m_menuBtn->setMenu(m_headMenu);
+    }
+
+    foreach(QPushButton *tbBtn, m_toolBarBtns) {
+        tbBtn->setObjectName("ToolBarButton");
+        tbBtn->setFont(QFont("Material Design Sharp", 16));
+    }
 }
 
 QWidget* MainWindow::createLayout() {

@@ -8,6 +8,7 @@
 #include <QPointer>
 
 #include <QToolBar>
+#include <QMenu>
 
 #include <QVBoxLayout>
 
@@ -36,6 +37,19 @@ public:
     }
     
 protected:
+    // Toolbar buttons
+    void createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText);
+    QPushButton *m_previousBtn;
+    QPushButton *m_nextBtn;
+    QPushButton *m_metaDataBtn;
+    QPushButton *m_deleteBtn;
+    QPushButton *m_menuBtn;
+    QMenu *m_headMenu;
+    QMenu *m_helpMenu;
+    // todo: logoBtn?
+    QList<QPushButton*> m_toolBarBtns;
+    void fillToolBar();
+
     QWidget *m_centralWidget;
     QVBoxLayout *m_mainLayout;
     QPushButton *m_showFolderBrowserBtn;

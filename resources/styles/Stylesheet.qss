@@ -24,6 +24,25 @@ QScrollBar::sub-line:horizontal {
     background: none;
 }
 
+#ToolBarButton {
+    border: none;
+    padding: 4px;
+}
+
+#ToolBarButton:hover {
+    background-color: rgb(154, 154, 154);
+}
+
+#ToolBarButton:pressed {
+    background-color: rgb(60, 60, 60);
+    color: rgb(2, 143, 30);
+}
+
+#ToolBarButton:menu-indicator {
+    image: none;
+    width: 0px;
+}
+
 #ShowFolderBrowserButton {
     border: none;
     padding: 0px;
