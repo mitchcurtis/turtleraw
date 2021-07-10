@@ -38,7 +38,7 @@ public:
     
 protected:
     // Toolbar buttons
-    void createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText);
+    void createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText, bool checkable);
     QPushButton *m_previousBtn;
     QPushButton *m_nextBtn;
     QPushButton *m_metaDataBtn;

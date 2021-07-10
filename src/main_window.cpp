@@ -25,9 +25,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 MainWindow::~MainWindow() {
 }
 
-void MainWindow::createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText) {
+void MainWindow::createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText, bool checkable) {
     tb->addWidget(btn);
     btn->setShortcut(QKeySequence(shortcut));
+    btn->setCheckable(checkable);
     if (!shortcut.isEmpty())
         btn->setToolTip(tipText + " (" + QKeySequence(btn->shortcut()).toString() + ")");
     else
@@ -36,21 +37,21 @@ void MainWindow::createToolBarButton(QPushButton *btn, QToolBar *tb, const QStri
 
 void MainWindow::fillToolBar() {
     m_previousBtn = new QPushButton("\uE5C4", m_toolBar);
-    createToolBarButton(m_previousBtn, m_toolBar, "Ctrl+Left", tr("Previous"));
+    createToolBarButton(m_previousBtn, m_toolBar, "Ctrl+Left", tr("Previous"), false);
     m_toolBarBtns.append(m_previousBtn);
 
     m_nextBtn = new QPushButton("\uE5C8", m_toolBar);
-    createToolBarButton(m_nextBtn, m_toolBar, "Ctrl+Right", tr("Next"));
+    createToolBarButton(m_nextBtn, m_toolBar, "Ctrl+Right", tr("Next"), false);
     m_toolBarBtns.append(m_nextBtn);
 
     m_metaDataBtn = new QPushButton("\uE88E", m_toolBar);
-    createToolBarButton(m_metaDataBtn, m_toolBar, "Alt+M", tr("Show metadata"));
+    createToolBarButton(m_metaDataBtn, m_toolBar, "Alt+M", tr("Show metadata"), true);
     m_toolBarBtns.append(m_metaDataBtn);
 
     m_toolBar->addSeparator();
 
     m_deleteBtn = new QPushButton("\uE872", m_toolBar);
-    createToolBarButton(m_deleteBtn, m_toolBar, "Del", tr("Delete"));
+    createToolBarButton(m_deleteBtn, m_toolBar, "Del", tr("Delete"), false);
     m_toolBarBtns.append(m_deleteBtn);
 
     QWidget *_toolBarSpacer = new QWidget(m_toolBar);
@@ -58,7 +59,7 @@ void MainWindow::fillToolBar() {
     m_toolBar->addWidget(_toolBarSpacer);
 
     m_menuBtn = new QPushButton("\uE5D2", m_toolBar);
-    createToolBarButton(m_menuBtn, m_toolBar, "", tr("Menu"));
+    createToolBarButton(m_menuBtn, m_toolBar, "", tr("Menu"), false);
     m_toolBarBtns.append(m_menuBtn);
     {
         m_menu = new QMenu(m_menuBtn);

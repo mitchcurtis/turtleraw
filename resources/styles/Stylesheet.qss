@@ -38,6 +38,11 @@ QScrollBar::sub-line:horizontal {
     color: rgb(2, 143, 30);
 }
 
+#ToolBarButton:checked {
+    background-color: rgb(60, 60, 60);
+    color: rgb(2, 143, 30);
+}
+
 #ToolBarButton:menu-indicator {
     image: none;
     width: 0px;
