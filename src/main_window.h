@@ -44,7 +44,11 @@ protected:
     QPushButton *m_metaDataBtn;
     QPushButton *m_deleteBtn;
     QPushButton *m_menuBtn;
-    QMenu *m_headMenu;
+    QMenu *m_menu;
+    QMenu *m_fileMenu;
+    QMenu *m_editMenu;
+    QMenu *m_viewMenu;
+    QMenu *m_toolsMenu;
     QMenu *m_helpMenu;
     // todo: logoBtn?
     QList<QPushButton*> m_toolBarBtns;

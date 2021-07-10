@@ -61,9 +61,15 @@ void MainWindow::fillToolBar() {
     createToolBarButton(m_menuBtn, m_toolBar, "", tr("Menu"));
     m_toolBarBtns.append(m_menuBtn);
     {
-        m_headMenu = new QMenu(m_toolBar);
-        m_helpMenu = m_headMenu->addMenu(tr("Help"));
-        m_menuBtn->setMenu(m_headMenu);
+        m_menu = new QMenu(m_menuBtn);
+
+        m_fileMenu = m_menu->addMenu(tr("File"));
+        m_editMenu = m_menu->addMenu(tr("Edit"));
+        m_viewMenu = m_menu->addMenu(tr("View"));
+        m_toolsMenu = m_menu->addMenu(tr("Tools"));
+        m_helpMenu = m_menu->addMenu(tr("Help"));
+
+        m_menuBtn->setMenu(m_menu);
     }
 
     foreach(QPushButton *tbBtn, m_toolBarBtns) {
