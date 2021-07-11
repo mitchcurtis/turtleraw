@@ -37,21 +37,21 @@ void MainWindow::createToolBarButton(QPushButton *btn, QToolBar *tb, const QStri
 
 void MainWindow::fillToolBar() {
     m_previousBtn = new QPushButton("\uE5C4", m_toolBar);
-    createToolBarButton(m_previousBtn, m_toolBar, "Ctrl+Left", tr("Previous"), false);
+    createToolBarButton(m_previousBtn, m_toolBar, Hella::shFromIni("previous"), tr("Previous"), false);
     m_toolBarBtns.append(m_previousBtn);
 
     m_nextBtn = new QPushButton("\uE5C8", m_toolBar);
-    createToolBarButton(m_nextBtn, m_toolBar, "Ctrl+Right", tr("Next"), false);
+    createToolBarButton(m_nextBtn, m_toolBar, Hella::shFromIni("next"), tr("Next"), false);
     m_toolBarBtns.append(m_nextBtn);
 
     m_metaDataBtn = new QPushButton("\uE88E", m_toolBar);
-    createToolBarButton(m_metaDataBtn, m_toolBar, "Alt+M", tr("Show metadata"), true);
+    createToolBarButton(m_metaDataBtn, m_toolBar, Hella::shFromIni("show_metadata"), tr("Show metadata"), true);
     m_toolBarBtns.append(m_metaDataBtn);
 
     m_toolBar->addSeparator();
 
     m_deleteBtn = new QPushButton("\uE872", m_toolBar);
-    createToolBarButton(m_deleteBtn, m_toolBar, "Del", tr("Delete"), false);
+    createToolBarButton(m_deleteBtn, m_toolBar, Hella::shFromIni("delete_img"), tr("Delete"), false);
     m_toolBarBtns.append(m_deleteBtn);
 
     QWidget *_toolBarSpacer = new QWidget(m_toolBar);
@@ -59,7 +59,7 @@ void MainWindow::fillToolBar() {
     m_toolBar->addWidget(_toolBarSpacer);
 
     m_menuBtn = new QPushButton("\uE5D2", m_toolBar);
-    createToolBarButton(m_menuBtn, m_toolBar, "", tr("Menu"), false);
+    createToolBarButton(m_menuBtn, m_toolBar, Hella::shFromIni("menu"), tr("Menu"), false);
     m_toolBarBtns.append(m_menuBtn);
     {
         m_menu = new QMenu(m_menuBtn);
@@ -124,11 +124,11 @@ QWidget* MainWindow::createLayout() {
 
 void MainWindow::onShowFolderBrowserBtn_Clicked() {
     if (!m_folderBrowserShown) {
-        propAnimation(folderBrowserScroll, "maximumHeight", 100, 0, 230);
+        Hella::propAnimation(folderBrowserScroll, "maximumHeight", 100, 0, 230);
         m_folderBrowserShown = true;
         m_showFolderBrowserBtn->setText("\uE5CF");
     } else {
-        propAnimation(folderBrowserScroll, "maximumHeight", 100, 230, 0);
+        Hella::propAnimation(folderBrowserScroll, "maximumHeight", 100, 230, 0);
         m_folderBrowserShown = false;
         m_showFolderBrowserBtn->setText("\uE5CE");
     }

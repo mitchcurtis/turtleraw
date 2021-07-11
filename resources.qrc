@@ -8,5 +8,6 @@
         <file>resources/fonts/RobotoCondensed-BoldItalic.ttf</file>
         <file>resources/fonts/RobotoCondensed-Bold.ttf</file>
         <file>resources/fonts/MaterialIconsSharp-Regular.otf</file>
+        <file>resources/default_shortcuts.ini</file>
     </qresource>
 </RCC>

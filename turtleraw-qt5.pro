@@ -17,6 +17,7 @@ HEADERS += src/hella.h \
             src/settings.h
 
 ## Submodules
+# phantomstyle
 include(modules/phantomstyle/src/phantom/phantom.pri)
 
 RESOURCES += \
