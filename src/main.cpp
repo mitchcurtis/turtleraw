@@ -34,16 +34,17 @@ static void installFonts() {
 int main(int argc, char *argv[]) {
     START_EASYLOGGINGPP(argc, argv);
     QApplication turtlerawApp(argc, argv);
+    turtlerawApp.setApplicationName(QLatin1String("TurtleRaw"));
     turtlerawApp.setApplicationVersion(QString("0.0.0"));
     turtlerawApp.setStyle(new PhantomStyle);
     installFonts();
     LOG(INFO) << "loaded fonts and initialized QApp object";
 
     Settings *settings = new Settings;
-    QDir homeSettingsDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/TurtleRaw");
-    if (!homeSettingsDir.exists()) {
-        LOG(WARNING) << "TurtleRaw home dir does not exist. We assume this is the first run...";
-        homeSettingsDir.mkpath(".");
+    QDir configSettingsDir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
+    if (!configSettingsDir.exists()) {
+        LOG(WARNING) << "TurtleRaw config dir does not exist. We assume that this is the first run...";
+        configSettingsDir.mkpath(".");
         settings->init();
     }
 

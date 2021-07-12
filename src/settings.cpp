@@ -12,7 +12,7 @@
 namespace turtleraw {
 
 Settings::Settings() {
-    m_xmlLocation = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/TurtleRaw/settings.xml";
+    m_xmlLocation = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/settings.xml";
 }
 
 bool Settings::write() {
@@ -77,8 +77,10 @@ bool Settings::init() {
     useThumbnailsAlways(true);
     // todo
 
-    if (write())
+    if (write()) {
+        LOG(INFO) << "Wrote settings to: " << m_xmlLocation;
         return true;
+    }
     return false;
 }
 
