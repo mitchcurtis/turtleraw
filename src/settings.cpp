@@ -1,5 +1,6 @@
 // Copyright (c) 2021 Jan Kowalewicz. Licensed under MIT license (see LICENSE for more details).
 #include "settings.h"
+#include "easylogging++.h"
 
 #include <QStandardPaths>
 #include <QFile>
@@ -57,10 +58,12 @@ bool Settings::read() {
                 }
             }
         }
-        if (reader.hasError())
-            return false;
+        if (reader.hasError()) {
+            LOG(FATAL) << "Internal error in QXmlStreamReader!";
+        }
         xmlSettingsFile.close();
     } else {
+        LOG(ERROR) << "Could not open settings for read.";
         return false;
     }
     return true;

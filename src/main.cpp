@@ -1,5 +1,6 @@
 // Copyright (c) 2021 Jan Kowalewicz. Licensed under MIT license (see LICENSE for more details).
 #include <QApplication>
+#include "easylogging++.h"
 
 #include "phantomstyle.h"
 #include <QStyle>
@@ -16,6 +17,8 @@
 
 using namespace turtleraw;
 
+INITIALIZE_EASYLOGGINGPP
+
 static void installFonts() {
     // We assume that the user has not installed the font.
     QFontDatabase::addApplicationFont("://resources/fonts/RobotoCondensed-Regular.ttf");
@@ -29,14 +32,17 @@ static void installFonts() {
 }
 
 int main(int argc, char *argv[]) {
+    START_EASYLOGGINGPP(argc, argv);
     QApplication turtlerawApp(argc, argv);
     turtlerawApp.setApplicationVersion(QString("0.0.0"));
     turtlerawApp.setStyle(new PhantomStyle);
     installFonts();
+    LOG(INFO) << "loaded fonts and initialized QApp object";
 
     Settings *settings = new Settings;
     QDir homeSettingsDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/TurtleRaw");
     if (!homeSettingsDir.exists()) {
+        LOG(WARNING) << "TurtleRaw home dir does not exist. We assume this is the first run...";
         homeSettingsDir.mkpath(".");
         settings->init();
     }

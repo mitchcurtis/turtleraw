@@ -20,5 +20,8 @@ HEADERS += src/hella.h \
 # phantomstyle
 include(modules/phantomstyle/src/phantom/phantom.pri)
 
+# easylogging++
+include(modules/easyloggingpp/easyloggingpp.pri)
+
 RESOURCES += \
     resources.qrc

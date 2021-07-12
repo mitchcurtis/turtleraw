@@ -4,6 +4,9 @@ out/*
 # Visual Code stuff
 .vscode/*
 
+# Personal TODO lists etc...
+.jan/*
+
 # C++ objects and libs
 *.slo
 *.lo
