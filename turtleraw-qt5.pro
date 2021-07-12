@@ -8,13 +8,15 @@ SOURCES += src/main.cpp \
             src/main_window.cpp \
             src/folder_browser.cpp \
             src/folder_browser_element.cpp \
-            src/settings.cpp
+            src/settings.cpp \
+            src/assign_filetypes_dialog.cpp
 
 HEADERS += src/hella.h \
             src/main_window.h \
             src/folder_browser.h \
             src/folder_browser_element.h \
-            src/settings.h
+            src/settings.h \
+            src/assign_filetypes_dialog.h
 
 ## Submodules
 # phantomstyle

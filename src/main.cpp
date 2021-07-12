@@ -12,8 +12,13 @@
 #include <QDir>
 #include <QStandardPaths>
 
+#include <QList>
+#include <QByteArray>
+#include <QImageReader>
+
 #include "settings.h"
 #include "main_window.h"
+#include "assign_filetypes_dialog.h"
 
 using namespace turtleraw;
 
@@ -31,6 +36,27 @@ static void installFonts() {
     QFontDatabase::addApplicationFont("://resources/fonts/MaterialIconsSharp-Regular.otf");
 }
 
+static bool areWeRawYet() {
+    QList<QByteArray> fmts = QImageReader::supportedImageFormats();
+
+    // TurtleRaw focuses on raw images, so support for raw images MUST be given. Because
+    // QtRaw includes a multiple list of Raw formats, we can simply check for one of them,
+    // in this case Canon raw v2, to know, if raw support is enabled.
+    if (!fmts.contains("cr2")) {
+        LOG(FATAL) << "Something messed up during build. Raw support not given. "
+                        "Please rebuild application with QtRaw plugin enabled.";
+        return false;
+    }
+
+    // Even though HEIF/HEIC is necessary for me, you can build TurtleRaw without the HEIF
+    // plugin.
+    if (!fmts.contains("heif")) {
+        LOG(WARNING) << "HEIF plugin was not enabled during build. We allow that.";
+        return true;
+    }
+    return true;
+}
+
 int main(int argc, char *argv[]) {
     START_EASYLOGGINGPP(argc, argv);
     QApplication turtlerawApp(argc, argv);
@@ -40,21 +66,10 @@ int main(int argc, char *argv[]) {
     installFonts();
     LOG(INFO) << "loaded fonts and initialized QApp object";
 
-    Settings *settings = new Settings;
-    QDir configSettingsDir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
-    if (!configSettingsDir.exists()) {
-        LOG(WARNING) << "TurtleRaw config dir does not exist. We assume that this is the first run...";
-        configSettingsDir.mkpath(".");
-        settings->init();
-    }
+    if (!areWeRawYet())
+        return 1;
 
-    if (!settings->read()) {
-        // TODO
-    }
-
-    if (!settings->systemFontWanted())
-        turtlerawApp.setFont(QFont("Roboto Condensed", 11));
-
+    // Set the palette before we show the first window / dialog so we have a consistent style.
     QPalette appPalette;
     appPalette.setColor(QPalette::Base, QColor(80, 80, 80));
     appPalette.setColor(QPalette::Window, QColor(80, 80, 80));
@@ -65,6 +80,24 @@ int main(int argc, char *argv[]) {
     // Signature color
     appPalette.setColor(QPalette::Highlight, QColor(2, 143, 30));
     turtlerawApp.setPalette(appPalette);
+
+    Settings *settings = new Settings;
+    QDir configSettingsDir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
+    if (!configSettingsDir.exists()) {
+        LOG(WARNING) << "TurtleRaw config dir does not exist. We assume that this is the first run...";
+        configSettingsDir.mkpath(".");
+        if (settings->init()) {
+            AssignFileTypesDialog _assignFileTypesDlg;
+            _assignFileTypesDlg.exec();
+        }
+    }
+
+    if (!settings->read()) {
+        // TODO
+    }
+
+    if (!settings->systemFontWanted())
+        turtlerawApp.setFont(QFont("Roboto Condensed", 11));
 
     QFile stylesheetFile("://resources/styles/Stylesheet.qss");
     stylesheetFile.open(QIODevice::ReadOnly);
