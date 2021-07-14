@@ -59,6 +59,13 @@ void MainWindow::createToolBarButton(QPushButton *btn, QToolBar *tb, const QStri
         btn->setToolTip(tipText);
 }
 
+void MainWindow::createMenuAction(QAction *act, QMenu *m, const QString &shortcut, bool checkable, bool enabledByDefault) {
+    m->addAction(act);
+    act->setShortcut(QKeySequence(shortcut));
+    act->setCheckable(checkable);
+    act->setEnabled(enabledByDefault);
+}
+
 void MainWindow::fillToolBar() {
     m_previousBtn = new QPushButton("\uE5C4", m_toolBar);
     createToolBarButton(m_previousBtn, m_toolBar, Hella::shFromIni("previous"), tr("Previous"), false);
@@ -90,6 +97,11 @@ void MainWindow::fillToolBar() {
 
         m_fileMenu = m_menu->addMenu(tr("File"));
         m_editMenu = m_menu->addMenu(tr("Edit"));
+        {
+            m_editPreferencesAction = new QAction(tr("Edit Preferences..."), this);
+            createMenuAction(m_editPreferencesAction, m_editMenu, "edit_preferences", false, true);
+            connect(m_editPreferencesAction, SIGNAL(triggered()), this, SLOT(settingsDialogRequired()));
+        }
         m_viewMenu = m_menu->addMenu(tr("View"));
         m_toolsMenu = m_menu->addMenu(tr("Tools"));
         m_helpMenu = m_menu->addMenu(tr("Help"));
@@ -156,6 +168,13 @@ void MainWindow::onShowFolderBrowserBtn_Clicked() {
         m_folderBrowserShown = false;
         m_showFolderBrowserBtn->setText("\uE5CE");
     }
+}
+
+void MainWindow::settingsDialogRequired() {
+    if (!settingsDlg)
+        settingsDlg = new SettingsDialog(this);
+    
+    settingsDlg->exec();
 }
 
 } // namespace

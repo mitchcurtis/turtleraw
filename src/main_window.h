@@ -10,6 +10,7 @@
 
 #include <QToolBar>
 #include <QMenu>
+#include <QAction>
 
 #include <QVBoxLayout>
 
@@ -17,6 +18,7 @@
 #include <QPushButton>
 
 #include "settings.h"
+#include "settings_dialog.h"
 #include "folder_browser.h"
 
 namespace turtleraw {
@@ -43,6 +45,7 @@ public:
 protected:
     // Toolbar buttons
     void createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText, bool checkable);
+    void createMenuAction(QAction *act, QMenu *m, const QString &shortcut, bool checkable, bool enabledByDefault);
     QPushButton *m_previousBtn;
     QPushButton *m_nextBtn;
     QPushButton *m_metaDataBtn;
@@ -50,7 +53,10 @@ protected:
     QPushButton *m_menuBtn;
     QMenu *m_menu;
     QMenu *m_fileMenu;
+
     QMenu *m_editMenu;
+    QAction *m_editPreferencesAction;
+    
     QMenu *m_viewMenu;
     QMenu *m_toolsMenu;
     QMenu *m_helpMenu;
@@ -65,11 +71,13 @@ protected:
     QWidget* createLayout();
 
     Settings *m_settings;
+    QPointer<SettingsDialog> settingsDlg;
 
     QStringList m_startupArguments;
 
 public slots:
     void onShowFolderBrowserBtn_Clicked();
+    void settingsDialogRequired();
 };
 
 } // namespace
