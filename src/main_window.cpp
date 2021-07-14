@@ -1,8 +1,10 @@
 // Copyright (c) 2021 Jan Kowalewicz. Licensed under MIT license (see LICENSE for more details).
 #include "main_window.h"
 #include "hella.h"
+#include "easylogging++.h"
 
 #include <QApplication>
+#include <QFileInfo>
 
 namespace turtleraw {
 
@@ -23,6 +25,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 MainWindow::~MainWindow() {
+}
+
+void MainWindow::carryArguments(const QStringList &l) {
+    // Based off documentation, the first argument (0) should be usually the application.
+    // We assume that we get the path in the second argument.
+    QString possiblePath;
+    if (l.count() < 2) {
+        LOG(INFO) << "No startup arguments attached.";
+        return;
+    } else {
+        possiblePath = l.at(1);
+    }
+    
+    if (possiblePath.startsWith("/")) {
+        QFileInfo fileCheck(possiblePath);
+        if (fileCheck.exists())
+            m_startupArguments = l;
+        else
+            LOG(ERROR) << "File to open was moved or deleted during startup.";
+    } else {
+        LOG(ERROR) << "Invalid startup argument. Expected file, not given.";
+    }
 }
 
 void MainWindow::createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText, bool checkable) {

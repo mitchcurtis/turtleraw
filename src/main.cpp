@@ -69,6 +69,12 @@ int main(int argc, char *argv[]) {
     if (!areWeRawYet())
         return 1;
 
+    // In documentation calling this function is stated as "slow". As we just
+    // have one argument (and no other possibility) this should be enough
+    // for what we want to achieve.
+    // TODO: handle multiple arguments
+    QStringList _args = turtlerawApp.arguments();
+
     // Set the palette before we show the first window / dialog so we have a consistent style.
     QPalette appPalette;
     appPalette.setColor(QPalette::Base, QColor(80, 80, 80));
@@ -105,6 +111,7 @@ int main(int argc, char *argv[]) {
 
     MainWindow win;
     win.carrySettings(settings);
+    win.carryArguments(_args);
     win.show();
 
     return turtlerawApp.exec();

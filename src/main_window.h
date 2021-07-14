@@ -6,6 +6,7 @@
 #include <QWidget>
 
 #include <QPointer>
+#include <QStringList>
 
 #include <QToolBar>
 #include <QMenu>
@@ -35,6 +36,9 @@ public:
     void carrySettings(Settings *s) {
         m_settings = s;
     }
+
+    // No inline function because we need to check if we got a valid path.
+    void carryArguments(const QStringList &l);
     
 protected:
     // Toolbar buttons
@@ -61,6 +65,8 @@ protected:
     QWidget* createLayout();
 
     Settings *m_settings;
+
+    QStringList m_startupArguments;
 
 public slots:
     void onShowFolderBrowserBtn_Clicked();
