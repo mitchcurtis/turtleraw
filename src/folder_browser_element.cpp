@@ -2,6 +2,7 @@
 #include "folder_browser_element.h"
 
 #include <QDebug>
+#include <QCursor>
 
 namespace turtleraw {
 
@@ -35,6 +36,12 @@ FolderBrowserElement::FolderBrowserElement(QWidget *parent) : QWidget(parent) {
         m_imageLbl->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     }
 
+    m_contextMenu = new QMenu(this);
+    {
+        m_showFolderAction = m_contextMenu->addAction(tr("Show containing Folder"));
+        m_contextMenu->addAction(new QAction("Test"));
+    }
+
     m_layout->addWidget(m_fileExtensionLbl, Qt::AlignLeft);
     m_layout->addWidget(m_imageLbl, Qt::AlignVCenter);
 }
@@ -51,7 +58,7 @@ bool FolderBrowserElement::eventFilter(QObject *object, QEvent *event) {
         else if (event->type() == QEvent::MouseButtonDblClick)
             qDebug() << "double click";
         else if (event->type() == QEvent::ContextMenu)
-            qDebug() << "context menu required!";
+            m_contextMenu->exec(QCursor::pos());
         return QWidget::eventFilter(object, event);
     }
 }

@@ -9,6 +9,9 @@
 #include <QLabel>
 #include <QPushButton>
 
+#include <QMenu>
+#include <QAction>
+
 #include <QEvent>
 
 namespace turtleraw {
@@ -26,6 +29,9 @@ protected:
     
     QLabel *m_fileExtensionLbl;
     QLabel *m_imageLbl;
+
+    QMenu *m_contextMenu;
+    QAction *m_showFolderAction;
 };
 
 } // namespace
