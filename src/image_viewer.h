@@ -17,7 +17,7 @@ public:
     ImageViewerWidget(QWidget *parent = nullptr);
 
     // Loads an image from a given file path. Nothing more, nothing less.
-    QPixmap& loadImage(QString filePath, bool useThumbnails);
+    QString loadImage(QString filePath, bool useThumbnails);
     
     // Clear the label holding the image.
     void clear() {

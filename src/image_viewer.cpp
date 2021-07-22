@@ -10,6 +10,8 @@
 #include <QImage>
 #include <QPixmap>
 
+#include <QFileInfo>
+
 namespace turtleraw {
 
 ImageViewerWidget::ImageViewerWidget(QWidget *parent) : QWidget(parent) {
@@ -39,9 +41,13 @@ ImageViewerWidget::ImageViewerWidget(QWidget *parent) : QWidget(parent) {
     setLayout(widgetLayout);
 }
 
-QPixmap& ImageViewerWidget::loadImage(QString filePath, bool useThumbnails) {
+QString ImageViewerWidget::loadImage(QString filePath, bool useThumbnails) {
     // Clear contents first.
     clear();
+
+    QFileInfo fileInf(filePath);
+    if (!fileInf.exists())
+        LOG(FATAL) << "This should not happen. Image moved/deleted on load.";
 
     QImageReader rd(filePath);
     qDebug() << "INT original size: " << rd.size();
@@ -67,6 +73,8 @@ QPixmap& ImageViewerWidget::loadImage(QString filePath, bool useThumbnails) {
 
     m_imageLbl->setPixmap(m_pxmp);
     resizeImage();
+
+    return fileInf.fileName();
 }
 
 void ImageViewerWidget::resizeImage() {

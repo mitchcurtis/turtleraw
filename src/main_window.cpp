@@ -132,8 +132,9 @@ QWidget* MainWindow::createLayout() {
     if (!m_imageViewerWidget)
         m_imageViewerWidget = new ImageViewerWidget(this);
     // this is just for testing
-    m_imageViewerWidget->loadImage("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2", true);
+    QString _wndwTitle = m_imageViewerWidget->loadImage("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2", true);
     m_closeAction->setEnabled(true);
+    setWindowTitle(_wndwTitle);
     // ---
 
     m_showFolderBrowserBtn = new QPushButton(m_centralWidget);
@@ -170,6 +171,7 @@ void MainWindow::onCloseAction_Triggered() {
     if (m_imageViewerWidget)
         m_imageViewerWidget->clear();
     m_closeAction->setEnabled(false);
+    setWindowTitle(""); // clear the window title
 }
 
 void MainWindow::onShowFolderBrowserBtn_Clicked() {

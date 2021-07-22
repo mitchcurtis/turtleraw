@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
     START_EASYLOGGINGPP(argc, argv);
     QApplication turtlerawApp(argc, argv);
     turtlerawApp.setApplicationName(QLatin1String("TurtleRaw"));
+    turtlerawApp.setApplicationDisplayName(QLatin1String("TurtleRaw"));
     turtlerawApp.setApplicationVersion(QString("0.0.0"));
     turtlerawApp.setStyle(new PhantomStyle);
     installFonts();
