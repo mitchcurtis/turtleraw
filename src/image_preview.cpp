@@ -1,5 +1,6 @@
 // Copyright (c) 2021 Jan Kowalewicz. Licensed under MIT license (see LICENSE for more details).
 #include "image_preview.h"
+#include "easylogging++.h"
 #include <QDebug>
 
 #include <QHBoxLayout>
@@ -48,6 +49,7 @@ QPixmap& ImagePreviewWidget::loadImage(QString filePath, bool useThumbnails) {
     clear();
 
     QImageReader rd(filePath);
+    qDebug() << "INT original size: " << rd.size();
     if (rd.size().isValid()) {
         if (useThumbnails) {
             QSize reqSize = QSize(rd.size().width()/4, rd.size().height()/4);
@@ -60,6 +62,12 @@ QPixmap& ImagePreviewWidget::loadImage(QString filePath, bool useThumbnails) {
         QImage previewImage;
         rd.read(&previewImage);
         m_previewPxmp = QPixmap::fromImage(previewImage);
+    } else {
+        // TODO: for whatever reason on HEIC images it returns a original size of (-1, -1). Why?
+        LOG(WARNING) << "Invalid size. Lets try to display it anyway...";
+        QImage invalidPreviewImage;
+        rd.read(&invalidPreviewImage);
+        m_previewPxmp = QPixmap::fromImage(invalidPreviewImage);
     }
 
     m_imageLbl->setPixmap(m_previewPxmp);

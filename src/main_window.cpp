@@ -132,7 +132,7 @@ QWidget* MainWindow::createLayout() {
     if (!imagePreviewWidget)
         imagePreviewWidget = new ImagePreviewWidget(this);
     // this is just for testing
-    imagePreviewWidget->loadImage("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2", true);
+    imagePreviewWidget->loadImage("/home/nitroo/Projects/turtleraw/resources/testimages/iPhoneHEICTest.heic", false);
     m_closeAction->setEnabled(true);
     // ---
 
