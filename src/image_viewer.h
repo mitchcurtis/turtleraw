@@ -7,13 +7,14 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <QPixmap>
+#include <QSize>
 
 namespace turtleraw {
 
-class ImagePreviewWidget : public QWidget {
+class ImageViewerWidget : public QWidget {
     Q_OBJECT
 public:
-    ImagePreviewWidget(QWidget *parent = nullptr);
+    ImageViewerWidget(QWidget *parent = nullptr);
 
     // Loads an image from a given file path. Nothing more, nothing less.
     QPixmap& loadImage(QString filePath, bool useThumbnails);
@@ -25,11 +26,12 @@ public:
     }
 
     QScrollArea *m_scrollArea;
+    QSize reqSize;
 protected:
-    void resizeImagePreview();
+    void resizeImage();
 
     QLabel *m_imageLbl;
-    QPixmap m_previewPxmp;
+    QPixmap m_pxmp;
 };
 
 } // namespace

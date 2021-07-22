@@ -17,7 +17,7 @@
 #include <QScrollArea>
 #include <QPushButton>
 
-#include "image_preview.h"
+#include "image_viewer.h"
 #include "settings.h"
 #include "settings_dialog.h"
 #include "folder_browser.h"
@@ -32,7 +32,7 @@ public:
 
     QToolBar *m_toolBar;
 
-    QPointer<ImagePreviewWidget> imagePreviewWidget;
+    QPointer<ImageViewerWidget> m_imageViewerWidget;
 
     QPointer<QScrollArea> folderBrowserScroll;
     QPointer<FolderBrowser> folderBrowserView;

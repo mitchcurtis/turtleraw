@@ -129,10 +129,10 @@ QWidget* MainWindow::createLayout() {
         m_mainLayout->setSpacing(0);
     }
 
-    if (!imagePreviewWidget)
-        imagePreviewWidget = new ImagePreviewWidget(this);
+    if (!m_imageViewerWidget)
+        m_imageViewerWidget = new ImageViewerWidget(this);
     // this is just for testing
-    imagePreviewWidget->loadImage("/home/nitroo/Projects/turtleraw/resources/testimages/iPhoneHEICTest.heic", false);
+    m_imageViewerWidget->loadImage("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2", true);
     m_closeAction->setEnabled(true);
     // ---
 
@@ -147,7 +147,7 @@ QWidget* MainWindow::createLayout() {
         m_folderBrowserShown = false;
     }
 
-    m_mainLayout->addWidget(imagePreviewWidget);
+    m_mainLayout->addWidget(m_imageViewerWidget);
     m_mainLayout->addWidget(m_showFolderBrowserBtn);
 
     if (!folderBrowserScroll)
@@ -167,8 +167,8 @@ QWidget* MainWindow::createLayout() {
 }
 
 void MainWindow::onCloseAction_Triggered() {
-    if (imagePreviewWidget)
-        imagePreviewWidget->clear();
+    if (m_imageViewerWidget)
+        m_imageViewerWidget->clear();
     m_closeAction->setEnabled(false);
 }
 

@@ -24,6 +24,32 @@ QScrollBar::sub-line:horizontal {
     background: none;
 }
 
+QScrollBar:vertical {
+    width: 15px;
+    margin: 15px 3px 15px 3px;
+    border: 1px transparent #2A2929;
+    border-radius: 4px;
+    background-color: rgb(60, 60, 60);
+}
+
+QScrollBar::handle:vertical {
+    background-color: rgb(200, 200, 200);
+    min-height: 5px;
+    border-radius: 4px;
+}
+
+QScrollBar::add-line:vertical {
+    border: none;
+    background: none;
+}
+
+QScrollBar::sub-line:vertical {
+    border: none;
+    background: none;
+}
+
+/* TODO: remove corner widget styling in QScrollArea */
+
 #ToolBarButton {
     border: none;
     padding: 4px;

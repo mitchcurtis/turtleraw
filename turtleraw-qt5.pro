@@ -11,7 +11,7 @@ SOURCES += src/main.cpp \
             src/settings.cpp \
             src/assign_filetypes_dialog.cpp \
             src/settings_dialog.cpp \
-            src/image_preview.cpp
+            src/image_viewer.cpp
 
 HEADERS += src/hella.h \
             src/main_window.h \
@@ -20,7 +20,7 @@ HEADERS += src/hella.h \
             src/settings.h \
             src/assign_filetypes_dialog.h \
             src/settings_dialog.h \
-            src/image_preview.h
+            src/image_viewer.h
 
 ## Libraries
 # exiv2
