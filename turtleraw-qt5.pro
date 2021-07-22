@@ -20,6 +20,11 @@ HEADERS += src/hella.h \
             src/assign_filetypes_dialog.h \
             src/settings_dialog.h
 
+## Libraries
+# exiv2
+LIBS += -L/usr/local/lib -lexiv2
+INCLUDEPATH += /usr/local/include
+
 ## Submodules
 # phantomstyle
 include(modules/phantomstyle/src/phantom/phantom.pri)

@@ -41,6 +41,8 @@ AssignFileTypesDialog::AssignFileTypesDialog(QWidget *parent) : QDialog(parent) 
         else
             itm->setCheckState(Qt::Unchecked);
         
+        // TODO: add a note anywhere that this needs a special version of QtRaw and an
+        // manual build of Libraw. Exiv2 may not work also!
         // CR3 support is currently experimental, thats why its also unchecked.
         if (itm->text().contains("cr3")) {
             itm->setText(tr("cr3 (experimental)"));
