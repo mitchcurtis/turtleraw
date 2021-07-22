@@ -17,6 +17,7 @@
 #include <QScrollArea>
 #include <QPushButton>
 
+#include "image_preview.h"
 #include "settings.h"
 #include "settings_dialog.h"
 #include "folder_browser.h"
@@ -30,7 +31,9 @@ public:
     ~MainWindow();
 
     QToolBar *m_toolBar;
-    
+
+    QPointer<ImagePreviewWidget> imagePreviewWidget;
+
     QPointer<QScrollArea> folderBrowserScroll;
     QPointer<FolderBrowser> folderBrowserView;
     bool m_folderBrowserShown;
@@ -52,7 +55,9 @@ protected:
     QPushButton *m_deleteBtn;
     QPushButton *m_menuBtn;
     QMenu *m_menu;
+    
     QMenu *m_fileMenu;
+    QAction *m_closeAction;
 
     QMenu *m_editMenu;
     QAction *m_editPreferencesAction;
@@ -76,6 +81,8 @@ protected:
     QStringList m_startupArguments;
 
 public slots:
+    void onCloseAction_Triggered();
+
     void onShowFolderBrowserBtn_Clicked();
     void settingsDialogRequired();
 };

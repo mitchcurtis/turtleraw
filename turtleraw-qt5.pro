@@ -10,7 +10,8 @@ SOURCES += src/main.cpp \
             src/folder_browser_element.cpp \
             src/settings.cpp \
             src/assign_filetypes_dialog.cpp \
-            src/settings_dialog.cpp
+            src/settings_dialog.cpp \
+            src/image_preview.cpp
 
 HEADERS += src/hella.h \
             src/main_window.h \
@@ -18,7 +19,8 @@ HEADERS += src/hella.h \
             src/folder_browser_element.h \
             src/settings.h \
             src/assign_filetypes_dialog.h \
-            src/settings_dialog.h
+            src/settings_dialog.h \
+            src/image_preview.h
 
 ## Libraries
 # exiv2

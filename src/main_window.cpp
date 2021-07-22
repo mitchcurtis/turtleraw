@@ -96,10 +96,15 @@ void MainWindow::fillToolBar() {
         m_menu = new QMenu(m_menuBtn);
 
         m_fileMenu = m_menu->addMenu(tr("File"));
+        {
+            m_closeAction = new QAction(tr("Close Image"), this);
+            createMenuAction(m_closeAction, m_fileMenu, Hella::shFromIni("close_img"), false, false);
+            connect(m_closeAction, SIGNAL(triggered()), this, SLOT(onCloseAction_Triggered()));
+        }
         m_editMenu = m_menu->addMenu(tr("Edit"));
         {
             m_editPreferencesAction = new QAction(tr("Edit Preferences..."), this);
-            createMenuAction(m_editPreferencesAction, m_editMenu, "edit_preferences", false, true);
+            createMenuAction(m_editPreferencesAction, m_editMenu, Hella::shFromIni("edit_preferences"), false, true);
             connect(m_editPreferencesAction, SIGNAL(triggered()), this, SLOT(settingsDialogRequired()));
         }
         m_viewMenu = m_menu->addMenu(tr("View"));
@@ -124,9 +129,12 @@ QWidget* MainWindow::createLayout() {
         m_mainLayout->setSpacing(0);
     }
 
-    // todo, we currently show an empty placeholder
-    QWidget *__p =  new QWidget;
-    __p->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    if (!imagePreviewWidget)
+        imagePreviewWidget = new ImagePreviewWidget(this);
+    // this is just for testing
+    imagePreviewWidget->loadImage("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2", true);
+    m_closeAction->setEnabled(true);
+    // ---
 
     m_showFolderBrowserBtn = new QPushButton(m_centralWidget);
     {
@@ -139,7 +147,7 @@ QWidget* MainWindow::createLayout() {
         m_folderBrowserShown = false;
     }
 
-    m_mainLayout->addWidget(__p);
+    m_mainLayout->addWidget(imagePreviewWidget);
     m_mainLayout->addWidget(m_showFolderBrowserBtn);
 
     if (!folderBrowserScroll)
@@ -156,6 +164,12 @@ QWidget* MainWindow::createLayout() {
 
     m_centralWidget->setLayout(m_mainLayout);
     return m_centralWidget;
+}
+
+void MainWindow::onCloseAction_Triggered() {
+    if (imagePreviewWidget)
+        imagePreviewWidget->clear();
+    m_closeAction->setEnabled(false);
 }
 
 void MainWindow::onShowFolderBrowserBtn_Clicked() {
