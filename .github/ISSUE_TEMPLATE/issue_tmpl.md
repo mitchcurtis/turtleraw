@@ -1,6 +1,6 @@
 ---
-name: Report an error
-about: Create an error import to improve TurtleRaw
+name: Report a problem
+about: Report a problem in TurtleRaw
 title: ''
 labels: 'error'
 assignees: ''
