@@ -134,7 +134,7 @@ QWidget* MainWindow::createLayout() {
     // this is just for testing
     TRImage img;
     img.setFilePath("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2");
-    m_imageViewerWidget->loadImage(img.read(), true);
+    m_imageViewerWidget->loadImage(img.read(), false);
     setWindowTitle(img.fileName());
     m_closeAction->setEnabled(true);
     // ---

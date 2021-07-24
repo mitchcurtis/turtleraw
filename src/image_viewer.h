@@ -26,12 +26,15 @@ public:
     }
 
     QScrollArea *m_scrollArea;
+    QSize origSize;
     QSize reqSize;
 protected:
     void resizeImage();
 
     QLabel *m_imageLbl;
     QPixmap m_pxmp;
+
+    bool m_useThumbs;
 };
 
 } // namespace

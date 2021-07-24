@@ -51,9 +51,12 @@ bool ImageViewerWidget::loadImage(QString filePath, bool useThumbnails) {
 
     QImageReader rd(filePath);
     qDebug() << "INT original size: " << rd.size();
+    origSize = rd.size();
+    m_useThumbs = false;
     if (rd.size().isValid()) {
         if (useThumbnails) {
             reqSize = QSize(rd.size().width()/4, rd.size().height()/4);
+            m_useThumbs = true;
             // We use QDebug here because I had a issue open in QtRaw...
             qDebug() << "INT requested size: " << reqSize;
             rd.setScaledSize(reqSize);
@@ -83,8 +86,20 @@ void ImageViewerWidget::resizeImage() {
         return;
     
     QSize pxSize = px->size();
-    if (pxSize.width() > m_scrollArea->width() || pxSize.height() > m_scrollArea->height())
-        pxSize.scale(reqSize.width(), reqSize.height(), Qt::KeepAspectRatio);
+
+    if (pxSize.width() > m_scrollArea->width() || pxSize.height() > m_scrollArea->height()) {
+        if (m_useThumbs) {
+            if (reqSize.width() < 0)
+                pxSize.scale(m_scrollArea->width(), m_scrollArea->height(), Qt::KeepAspectRatio);
+            else
+                pxSize.scale(reqSize.width(), reqSize.height(), Qt::KeepAspectRatio);
+        } else {
+            if (origSize.width() < 0)
+                pxSize.scale(m_scrollArea->width(), m_scrollArea->height(), Qt::KeepAspectRatio);
+            else
+                pxSize.scale(origSize.width(), origSize.height(), Qt::KeepAspectRatio);
+        }
+    }
     
     m_imageLbl->resize(pxSize);
     m_imageLbl->setMaximumSize(pxSize);
