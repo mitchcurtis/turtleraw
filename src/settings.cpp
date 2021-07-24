@@ -30,7 +30,7 @@ bool Settings::write() {
     writer.writeStartElement("Settings");
 
     writer.writeTextElement("UseSystemFont", QVariant(m_systemFont).toString());
-    writer.writeTextElement("UseAlwaysThumbnails", QVariant(m_alwaysThumbnails).toString());
+    writer.writeTextElement("AlwaysUseThumbnails", QVariant(m_useThumbnails).toString());
 
     writer.writeEndElement();
     writer.writeEndDocument();
@@ -52,9 +52,9 @@ bool Settings::read() {
                 if (reader.name() == "UseSystemFont") {
                     reader.readNext();
                     useSystemFont(QVariant(reader.text().toString()).toBool());
-                } else if (reader.name() == "UseAlwaysThumbnails") {
+                } else if (reader.name() == "AlwaysUseThumbnails") {
                     reader.readNext();
-                    useThumbnailsAlways(QVariant(reader.text().toString()).toBool());
+                    alwaysUseThumbnails(QVariant(reader.text().toString()).toBool());
                 }
             }
         }
@@ -74,7 +74,7 @@ bool Settings::init() {
         return false;
     
     useSystemFont(false);
-    useThumbnailsAlways(true);
+    alwaysUseThumbnails(true);
     // todo
 
     if (write()) {

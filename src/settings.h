@@ -27,18 +27,18 @@ public:
     // TurtleRaw shows only thumbnails in the preview of raw images by default. This
     // should significantly improve the performance of the program. As always, the user can
     // of course decide against this and let full images load.
-    void useThumbnailsAlways(bool yn) {
-        m_alwaysThumbnails = yn;
+    void alwaysUseThumbnails(bool yn) {
+        m_useThumbnails = yn;
     }
-    bool alwaysThumbnails() {
-        return m_alwaysThumbnails;
+    bool useThumbnails() {
+        return m_useThumbnails;
     }
 
 private:
     QString m_xmlLocation;
 
     bool m_systemFont;
-    bool m_alwaysThumbnails;
+    bool m_useThumbnails;
 };
 
 } // namespace

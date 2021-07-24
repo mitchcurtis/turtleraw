@@ -32,6 +32,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void create();
+
     QToolBar *m_toolBar;
 
     QPointer<ImageViewerWidget> m_imageViewerWidget;
@@ -45,9 +47,11 @@ public:
     }
 
     // No inline function because we need to check if we got a valid path.
-    void carryArguments(const QStringList &l);
+    void checkArguments(const QStringList &l);
     
 protected:
+    TRImage m_currentImage;
+
     // Toolbar buttons
     void createToolBarButton(QPushButton *btn, QToolBar *tb, const QString &shortcut, const QString &tipText, bool checkable);
     void createMenuAction(QAction *act, QMenu *m, const QString &shortcut, bool checkable, bool enabledByDefault);
@@ -81,6 +85,10 @@ protected:
     QPointer<SettingsDialog> settingsDlg;
 
     QStringList m_startupArguments;
+    QString m_startupImagePath;
+
+private:
+    QStringList m_args;
 
 public slots:
     void onCloseAction_Triggered();

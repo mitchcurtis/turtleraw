@@ -9,6 +9,12 @@
 namespace turtleraw {
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+    // In documentation calling this function is stated as "slow". As we just
+    // have one argument (and no other possibility) this should be enough
+    // for what we want to achieve.
+    m_args = QApplication::arguments();
+    checkArguments(m_args);
+
     m_toolBar = new QToolBar(this);
     {
         m_toolBar->setObjectName("WindowToolBar");
@@ -27,7 +33,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 MainWindow::~MainWindow() {
 }
 
-void MainWindow::carryArguments(const QStringList &l) {
+void MainWindow::create() {
+    if (!m_startupImagePath.isEmpty()) {
+        if (!m_imageViewerWidget)
+            LOG(FATAL) << "Layout corrupted. Something really bad happened.";
+        m_currentImage.setFilePath(m_startupImagePath);
+        m_imageViewerWidget->loadImage(m_currentImage.read(), m_settings->useThumbnails());
+        setWindowTitle(m_currentImage.fileName());
+        m_closeAction->setEnabled(true);
+    }
+
+    // Show the window after we prepared it.
+    show();
+}
+
+void MainWindow::checkArguments(const QStringList &l) {
     // Based off documentation, the first argument (0) should be usually the application.
     // We assume that we get the path in the second argument.
     QString possiblePath;
@@ -40,10 +60,12 @@ void MainWindow::carryArguments(const QStringList &l) {
     
     if (possiblePath.startsWith("/")) {
         QFileInfo fileCheck(possiblePath);
-        if (fileCheck.exists())
+        if (fileCheck.exists()) {
             m_startupArguments = l;
-        else
+            m_startupImagePath = l.at(1);
+        } else {
             LOG(ERROR) << "File to open was moved or deleted during startup.";
+        }
     } else {
         LOG(ERROR) << "Invalid startup argument. Expected file, not given.";
     }
@@ -131,13 +153,6 @@ QWidget* MainWindow::createLayout() {
 
     if (!m_imageViewerWidget)
         m_imageViewerWidget = new ImageViewerWidget(this);
-    // this is just for testing
-    TRImage img;
-    img.setFilePath("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2");
-    m_imageViewerWidget->loadImage(img.read(), false);
-    setWindowTitle(img.fileName());
-    m_closeAction->setEnabled(true);
-    // ---
 
     m_showFolderBrowserBtn = new QPushButton(m_centralWidget);
     {
