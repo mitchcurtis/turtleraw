@@ -22,6 +22,8 @@
 #include "settings_dialog.h"
 #include "folder_browser.h"
 
+#include "tr_image.h"
+
 namespace turtleraw {
 
 class MainWindow : public QMainWindow {

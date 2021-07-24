@@ -41,7 +41,7 @@ ImageViewerWidget::ImageViewerWidget(QWidget *parent) : QWidget(parent) {
     setLayout(widgetLayout);
 }
 
-QString ImageViewerWidget::loadImage(QString filePath, bool useThumbnails) {
+bool ImageViewerWidget::loadImage(QString filePath, bool useThumbnails) {
     // Clear contents first.
     clear();
 
@@ -74,7 +74,7 @@ QString ImageViewerWidget::loadImage(QString filePath, bool useThumbnails) {
     m_imageLbl->setPixmap(m_pxmp);
     resizeImage();
 
-    return fileInf.fileName();
+    return true;
 }
 
 void ImageViewerWidget::resizeImage() {

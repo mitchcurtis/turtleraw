@@ -132,9 +132,11 @@ QWidget* MainWindow::createLayout() {
     if (!m_imageViewerWidget)
         m_imageViewerWidget = new ImageViewerWidget(this);
     // this is just for testing
-    QString _wndwTitle = m_imageViewerWidget->loadImage("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2", true);
+    TRImage img;
+    img.setFilePath("/home/nitroo/Projects/turtleraw/resources/testimages/CanonRawTest.CR2");
+    m_imageViewerWidget->loadImage(img.read(), true);
+    setWindowTitle(img.fileName());
     m_closeAction->setEnabled(true);
-    setWindowTitle(_wndwTitle);
     // ---
 
     m_showFolderBrowserBtn = new QPushButton(m_centralWidget);
