@@ -2,7 +2,7 @@
 name: Report a problem
 about: Report a problem in TurtleRaw
 title: ''
-labels: 'error'
+labels: 'bug'
 assignees: ''
 ---
 
